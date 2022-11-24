@@ -7,7 +7,7 @@ fetch(geoRequest)
     return response.json();
   })
   .then(function(response){
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${response[0].lat}&lon=${response[0].lon}&appid=appid=e942fee8ce99d54e6ce8e15ee38866d4`,{mode: 'cors'})
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${response[0].lat}&lon=${response[0].lon}&appid=e942fee8ce99d54e6ce8e15ee38866d4`,{mode: 'cors'})
       .then(function(response){
         return response.json();
       })
