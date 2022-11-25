@@ -12,13 +12,14 @@ function fetchData(city) {
 }
 
 function fetchWeather(lat, lon){
-  const weatherRequest = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=e942fee8ce99d54e6ce8e15ee38866d4`;
+  const weatherRequest = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=e942fee8ce99d54e6ce8e15ee38866d4`;
   fetch(weatherRequest,{ mode: "cors" })
     .then(function (response) {
       return response.json();
     })
     .then(function (response) {
       renderContent(response);
+      console.dir(response);
     })
     .catch(function (err) {
       alert("Sorry, an error just ocurred");
@@ -26,9 +27,15 @@ function fetchWeather(lat, lon){
 }
 
 function renderContent(weather){
-  const innerHTML = `<p>${weather.name}</p>
-                    <p>${weather.id}</p>`;
+  const innerHTML = `<p>${weather.sys.country}</p>
+                    <p>${weather.name}</p>
+                    <p>latitude: ${weather.coord.lat}</p>
+                    <p>longitude: ${weather.coord.lon}</p>
+                    <p>${weather.weather[0].description}</p>
+                    <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
+                    <p>${weather.main.temp}</p>
+                    <p>${weather.wind.speed}`;
   document.body.innerHTML = innerHTML;
 }
 
-fetchData('Berlin');
+fetchData('Tunja');
