@@ -35,7 +35,14 @@ function renderContent(weather){
                     <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
                     <p>${weather.main.temp}</p>
                     <p>${weather.wind.speed}`;
+}
+
+function updateClock(){
+  const now = new Date();
+  const innerHTML = `${now.getHours()%12||12}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()}`;
   document.body.innerHTML = innerHTML;
 }
 
-fetchData('Tunja');
+//fetchData('Tunja');
+setInterval(updateClock,1000);
+
