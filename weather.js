@@ -26,9 +26,8 @@ function fetchWeather(lat, lon){
 }
 
 function renderContent(weather){
-  let element = document.createElement('p');
-  element.textContent = weather.name;
-  document.body.append(element);
+  const innerHTML = `<p>${weather.name}</p>`;
+  document.body.innerHTML = innerHTML;
 }
 
 fetchData('Berlin');
