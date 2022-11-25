@@ -26,7 +26,8 @@ function fetchWeather(lat, lon){
 }
 
 function renderContent(weather){
-  const innerHTML = `<p>${weather.name}</p>`;
+  const innerHTML = `<p>${weather.name}</p>
+                    <p>${weather.id}</p>`;
   document.body.innerHTML = innerHTML;
 }
 
