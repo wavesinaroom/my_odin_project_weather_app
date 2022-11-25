@@ -18,17 +18,16 @@ function fetchWeather(lat, lon){
       return response.json();
     })
     .then(function (response) {
-      renderContent(response.timezone);
-      console.dir(response);
+      renderContent(response);
     })
     .catch(function (err) {
       alert("Sorry, an error just ocurred");
     });
 }
 
-function renderContent(test){
+function renderContent(weather){
   let element = document.createElement('p');
-  element.textContent = test;
+  element.textContent = weather.name;
   document.body.append(element);
 }
 
