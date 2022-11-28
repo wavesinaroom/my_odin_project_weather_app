@@ -1,7 +1,10 @@
+let start, end;
+
 function fetchData(city) {
   const geoRequest = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=e942fee8ce99d54e6ce8e15ee38866d4`;
   fetch(geoRequest)
     .then(function (response) {
+      start = window.performance.now();
       return response.json();
     })
     .then(function(response){
@@ -19,6 +22,8 @@ function fetchWeather(lat, lon){
        return response.json();
     })
     .then(function (response) {
+      console.dir(response);
+      end = window.performance.now();
       displayWeather(response);
       displayClock();
       setInterval(displayClock,1000);
@@ -38,7 +43,8 @@ function displayWeather(weather){
                               <p>${weather.weather[0].description}</p>
                               <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
                               <p>${weather.main.temp}</p>
-                              <p>${weather.wind.speed}
+                              <p>${weather.wind.speed}</p>
+                              <p>Fetched in ${end-start}</p> 
                               </div>`;
 }
 
@@ -49,13 +55,18 @@ function displayClock(){
 
 const renderUserForm = function(){
   document.body.innerHTML = `<form>
-                            <input type='text' placeholder='Type your city'></input>
+                            <input type='text' placeholder='Type your city' id='user-input'></input>
                             <label for='units'>Choose your units</label>
                             <div id='units-selector'>
                             <input type = 'radio'>Metrics</input>
                             <input type = 'radio'>Imperial</input>
                             </div>
                             </form>`
+  document.body.firstChild.addEventListener('submit', (e)=>{
+    fetchData(document.getElementById('user-input').value);
+    e.preventDefault();
+  });
+
 }();
 
 //fetchData('Berlin');
