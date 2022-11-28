@@ -44,7 +44,7 @@ function displayWeather(weather){
                               <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
                               <p>${weather.main.temp}</p>
                               <p>${weather.wind.speed}</p>
-                              <p>Fetched in ${end-start}</p> 
+                              <p>Fetched in ${end-start} ms</p> 
                               </div>`;
 }
 
