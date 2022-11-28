@@ -5,7 +5,9 @@ function fetchData(city) {
       return response.json();
     })
     .then(function(response){
-      fetchWeather(response[0].lat, response[0].lon)})
+      fetchWeather(response[0].lat, response[0].lon);
+      setInterval(displayClock,1000);
+    })
     .catch(function (err) {
       alert("Unknown city");
     });
@@ -18,7 +20,7 @@ function fetchWeather(lat, lon){
       return response.json();
     })
     .then(function (response) {
-      renderContent(response);
+      displayWeather(response);
       console.dir(response);
     })
     .catch(function (err) {
@@ -26,23 +28,23 @@ function fetchWeather(lat, lon){
     });
 }
 
-function renderContent(weather){
-  const innerHTML = `<p>${weather.sys.country}</p>
-                    <p>${weather.name}</p>
-                    <p>latitude: ${weather.coord.lat}</p>
-                    <p>longitude: ${weather.coord.lon}</p>
-                    <p>${weather.weather[0].description}</p>
-                    <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
-                    <p>${weather.main.temp}</p>
-                    <p>${weather.wind.speed}`;
+function displayWeather(weather){
+  document.body.innerHTML += `<div id = 'forecast'>
+                              <div id = 'clock'></div>
+                              <p>${weather.sys.country}</p>
+                              <p>${weather.name}</p>
+                              <p>latitude: ${weather.coord.lat}</p>
+                              <p>longitude: ${weather.coord.lon}</p>
+                              <p>${weather.weather[0].description}</p>
+                              <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
+                              <p>${weather.main.temp}</p>
+                              <p>${weather.wind.speed}
+                              </div>`;
 }
 
-function updateClock(){
+function displayClock(){
   const now = new Date();
-  const innerHTML = `${now.getHours()%12||12}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()}`;
-  document.body.innerHTML = innerHTML;
+  document.getElementById('clock').innerHTML = `${now.getHours()%12||12}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()}`;
 }
 
-//fetchData('Tunja');
-setInterval(updateClock,1000);
-
+fetchData('Berlin');
