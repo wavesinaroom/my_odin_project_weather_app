@@ -43,7 +43,6 @@ function displayWeather(weather){
                               <p>${weather.weather[0].description}</p>
                               <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
                               <p>temperature: ${weather.main.temp}</p>
-                              <p>min temperature: ${weather.main.temp_min}</p>
                               <p>Fetched in ${end-start} ms</p> 
                               </div>`;
 }
