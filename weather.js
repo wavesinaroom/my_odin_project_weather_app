@@ -47,4 +47,15 @@ function displayClock(){
   document.getElementById('clock').innerHTML = `Local time ${now.getHours()%12||12}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()}`;
 }
 
-fetchData('Berlin');
+const renderUserForm = function(){
+  document.body.innerHTML = `<form>
+                            <input type='text' placeholder='Type your city'></input>
+                            <label for='units'>Choose your units</label>
+                            <div id='units-selector'>
+                            <input type = 'radio'>Metrics</input>
+                            <input type = 'radio'>Imperial</input>
+                            </div>
+                            </form>`
+}();
+
+//fetchData('Berlin');
