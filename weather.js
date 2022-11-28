@@ -72,8 +72,9 @@ const renderUserForm = function(){
                             </form>`
   document.body.firstChild.addEventListener('submit', (e)=>{
     e.preventDefault();
-    if(tempFormatOnLoad()!=undefined)
-      fetchData(document.getElementById('user-input').value,tempFormatOnLoad());
+    const tempScale = tempFormatOnLoad();
+    if(tempScale!=undefined)
+      fetchData(document.getElementById('user-input').value,tempScale);
     else
       alert('no temp scale');
       return;
