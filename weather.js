@@ -70,15 +70,6 @@ function displayClock(){
   }, 1000);
 }
 
-function tempFormatOnLoad(){
-  if(document.getElementById('celsius').checked === true){
-    return 'metric';
-  }else if(document.getElementById('farenheit').checked === true){
-    return 'imperial';
-  }else{
-    return undefined; 
-  }
-}
 
 const renderUserForm = function(){
   document.body.innerHTML = `<form>
@@ -98,5 +89,14 @@ const renderUserForm = function(){
       return;
   });
 
+  function tempFormatOnLoad(){
+    if(document.getElementById('celsius').checked === true){
+      return 'metric';
+    }else if(document.getElementById('farenheit').checked === true){
+      return 'imperial';
+    }else{
+      return undefined; 
+    }
+  }
 }();
 
