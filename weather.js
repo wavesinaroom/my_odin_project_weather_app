@@ -1,4 +1,4 @@
-let start, end;
+let start, end, APILocation;
 
 function fetchData(city, units) {
   const geoRequest = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=e942fee8ce99d54e6ce8e15ee38866d4`;
@@ -9,8 +9,7 @@ function fetchData(city, units) {
     })
     .then(function(response){
       fetchWeather(response[0].lat, response[0].lon, units);
-      console.log(response[0].lat,response[0].lon);
-      //fetchTimeZone(response[0].lat, response[0].lon);
+      fetchTimeZone(response[0].lat, response[0].lon);
     })
     .catch(function (err) {
       alert("Unknown city");
@@ -34,12 +33,12 @@ function fetchWeather(lat, lon, units){
 }
 
 function fetchTimeZone(lat, lon){
-  const timeZoneRequest = `https://api.ipgeolocation.io/timezone?apiKey=9ba82911df22421086132e9e7c1facad&lat=${lat}&lon=${lon}`;
+  const timeZoneRequest = `https://api.ipgeolocation.io/timezone?apiKey=9ba82911df22421086132e9e7c1facad&lat=${lat}&long=${lon}`;
   fetch(timeZoneRequest, {mode: 'cors'})
     .then(function (response){
       return response.json();
     }).then(function(response){
-      console.dir(response);
+      APILocation = response.timezone; 
     })
     .catch(function(err){
       alert('Sorry, time couldn\'t be fetched');
@@ -68,7 +67,7 @@ function displayWeather(weather){
 }
 
 function displayClock(){
-  let where = new Date().toLocaleString([], {timeZone: "Asia/Dhaka"});
+  let where = new Date().toLocaleString([], {timeZone: APILocation});
   let now = new Date(where); 
 
   document.getElementById('clock').innerHTML = `Local time ${now.getHours()}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()} `;
