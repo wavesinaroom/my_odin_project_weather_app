@@ -1,6 +1,6 @@
 let start, end, APILocation;
 
-function fetchData(city, units) {
+function fetchData(city) {
   const geoRequest = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=e942fee8ce99d54e6ce8e15ee38866d4`;
   fetch(geoRequest)
     .then(function (response) {
@@ -8,7 +8,7 @@ function fetchData(city, units) {
       return response.json();
     })
     .then(function(response){
-      fetchWeather(response[0].lat, response[0].lon, units);
+      fetchWeather(response[0].lat, response[0].lon);
       fetchTimeZone(response[0].lat, response[0].lon);
     })
     .catch(function (err) {
@@ -16,8 +16,8 @@ function fetchData(city, units) {
     });
 }
 
-function fetchWeather(lat, lon, units){
-  const weatherRequest = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=e942fee8ce99d54e6ce8e15ee38866d4`;
+function fetchWeather(lat, lon){
+  const weatherRequest = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=e942fee8ce99d54e6ce8e15ee38866d4`;
   fetch(weatherRequest,{ mode: "cors" })
     .then(async function (response) {
        return response.json();
@@ -54,7 +54,7 @@ function displayWeather(weather){
                               <p>Longitude: ${weather.coord.lon}</p>
                               <p>${weather.weather[0].description}</p>
                               <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
-                              <p>Temperature: ${weather.main.temp} ${displayTempFormat()}</p>
+                              <p id = 'temp'>${displayTempFormat(weather.main.temp)} </p>
                               <p>Fetched in ${end-start} ms</p> 
                               </div>`;
 
@@ -64,6 +64,13 @@ function displayWeather(weather){
     document.body.innerHTML += `<div id = 'forecast'></div>`;
     document.getElementById('forecast').innerHTML = forecastContent;
   }
+
+  document.getElementById('celsius').addEventListener('click', ()=>{
+    document.getElementById('temp').innerHTML = displayTempFormat(weather.main.temp);
+  });
+  document.getElementById('farenheit').addEventListener('click', ()=>{
+    document.getElementById('temp').innerHTML = displayTempFormat(weather.main.temp);
+  });
 }
 
 function displayClock(){
@@ -76,11 +83,11 @@ function displayClock(){
   }, 1000);
 }
 
-function displayTempFormat(){
+function displayTempFormat(temp){
   if(document.getElementById('celsius').checked === true){
-    return 'C°';
+    return `Temperature: ${Math.trunc(temp-273.15)} C°`;
   }else{
-    return 'F°';
+    return `Temperature: ${Math.trunc(((temp-273.15)*1.8)+32)} F°`;
   }
 }
 
@@ -94,22 +101,11 @@ const renderUserForm = function(){
                             </form>`
   document.body.addEventListener('submit', (e)=>{
     e.preventDefault();
-    const tempScale = tempFormatOnLoad();
-    if(tempScale!=undefined)
-      fetchData(document.getElementById('user-input').value,tempScale);
+    if(document.getElementById('celsius').checked || document.getElementById('farenheit').checked)
+      fetchData(document.getElementById('user-input').value);
     else
       alert('no temp scale');
       return;
   });
-
-  function tempFormatOnLoad(){
-    if(document.getElementById('celsius').checked === true){
-      return 'metric';
-    }else if(document.getElementById('farenheit').checked === true){
-      return 'imperial';
-    }else{
-      return undefined; 
-    }
-  }
 }();
 
