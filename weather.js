@@ -8,8 +8,8 @@ function fetchData(city, units) {
       return response.json();
     })
     .then(function(response){
-      console.dir(response);
       fetchWeather(response[0].lat, response[0].lon, units);
+      console.log(response[0].lat,response[0].lon);
       //fetchTimeZone(response[0].lat, response[0].lon);
     })
     .catch(function (err) {
@@ -26,7 +26,7 @@ function fetchWeather(lat, lon, units){
     .then(function (response) {
       end = window.performance.now();
       displayWeather(response);
-      displayClock(response);
+      displayClock();
     })
     .catch(function (err) {
       alert("Sorry, an error just ocurred");
@@ -47,7 +47,7 @@ function fetchTimeZone(lat, lon){
 }
 
 function displayWeather(weather){
-  document.body.innerHTML += `<div id = 'forecast'>
+  const forecastContent =    `<div id = 'forecast'>
                               <div id = 'clock'></div>
                               <p>${weather.sys.country}</p>
                               <p>${weather.name}</p>
@@ -58,6 +58,13 @@ function displayWeather(weather){
                               <p>temperature: ${weather.main.temp}</p>
                               <p>Fetched in ${end-start} ms</p> 
                               </div>`;
+
+  if(document.getElementById('forecast')){
+    document.getElementById('forecast').innerHTML = forecastContent;
+  }else{
+    document.body.innerHTML += `<div id = 'forecast'></div>`;
+    document.getElementById('forecast').innerHTML = forecastContent;
+  }
 }
 
 function displayClock(){
