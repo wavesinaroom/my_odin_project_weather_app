@@ -8,7 +8,9 @@ function fetchData(city, units) {
       return response.json();
     })
     .then(function(response){
+      console.dir(response);
       fetchWeather(response[0].lat, response[0].lon, units);
+      //fetchTimeZone(response[0].lat, response[0].lon);
     })
     .catch(function (err) {
       alert("Unknown city");
@@ -22,15 +24,26 @@ function fetchWeather(lat, lon, units){
        return response.json();
     })
     .then(function (response) {
-      console.dir(response);
       end = window.performance.now();
       displayWeather(response);
       displayClock(response);
-      setInterval(displayClock,1000);
     })
     .catch(function (err) {
       alert("Sorry, an error just ocurred");
     });
+}
+
+function fetchTimeZone(lat, lon){
+  const timeZoneRequest = `https://api.ipgeolocation.io/timezone?apiKey=9ba82911df22421086132e9e7c1facad&lat=${lat}&lon=${lon}`;
+  fetch(timeZoneRequest, {mode: 'cors'})
+    .then(function (response){
+      return response.json();
+    }).then(function(response){
+      console.dir(response);
+    })
+    .catch(function(err){
+      alert('Sorry, time couldn\'t be fetched');
+    })
 }
 
 function displayWeather(weather){
@@ -47,9 +60,14 @@ function displayWeather(weather){
                               </div>`;
 }
 
-function displayClock(weather){
-  let now = new Date();
-  document.getElementById('clock').innerHTML = `Local time ${now.getHours()%12||12}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()}`;
+function displayClock(){
+  let where = new Date().toLocaleString([], {timeZone: "Asia/Dhaka"});
+  let now = new Date(where); 
+
+  document.getElementById('clock').innerHTML = `Local time ${now.getHours()}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()} `;
+  setTimeout(function(){
+    displayClock();
+  }, 1000);
 }
 
 function tempFormatOnLoad(){
@@ -70,7 +88,7 @@ const renderUserForm = function(){
                             <input id='celsius' type = 'radio' name = 'temperature'>C°</input>
                             </div>
                             </form>`
-  document.body.firstChild.addEventListener('submit', (e)=>{
+  document.body.addEventListener('submit', (e)=>{
     e.preventDefault();
     const tempScale = tempFormatOnLoad();
     if(tempScale!=undefined)
