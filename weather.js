@@ -50,11 +50,11 @@ function displayWeather(weather){
                               <div id = 'clock'></div>
                               <p>${weather.sys.country}</p>
                               <p>${weather.name}</p>
-                              <p>latitude: ${weather.coord.lat}</p>
-                              <p>longitude: ${weather.coord.lon}</p>
+                              <p>Latitude: ${weather.coord.lat}</p>
+                              <p>Longitude: ${weather.coord.lon}</p>
                               <p>${weather.weather[0].description}</p>
                               <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
-                              <p>temperature: ${weather.main.temp}</p>
+                              <p>Temperature: ${weather.main.temp}</p>
                               <p>Fetched in ${end-start} ms</p> 
                               </div>`;
 
