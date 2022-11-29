@@ -54,7 +54,7 @@ function displayWeather(weather){
                               <p>Longitude: ${weather.coord.lon}</p>
                               <p>${weather.weather[0].description}</p>
                               <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
-                              <p>Temperature: ${weather.main.temp}</p>
+                              <p>Temperature: ${weather.main.temp} ${displayTempFormat()}</p>
                               <p>Fetched in ${end-start} ms</p> 
                               </div>`;
 
@@ -76,6 +76,13 @@ function displayClock(){
   }, 1000);
 }
 
+function displayTempFormat(){
+  if(document.getElementById('celsius').checked === true){
+    return 'C°';
+  }else{
+    return 'F°';
+  }
+}
 
 const renderUserForm = function(){
   document.body.innerHTML = `<form>
