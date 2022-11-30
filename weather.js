@@ -67,9 +67,11 @@ function displayWeather(weather){
 
   document.getElementById('celsius').addEventListener('click', ()=>{
     document.getElementById('temp').innerHTML = displayTempFormat(weather.main.temp);
+    document.getElementById('celsius').checked = true;
   });
   document.getElementById('farenheit').addEventListener('click', ()=>{
     document.getElementById('temp').innerHTML = displayTempFormat(weather.main.temp);
+    document.getElementById('farenheit').checked = true;
   });
 }
 
