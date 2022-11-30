@@ -1,6 +1,6 @@
 *{
   font-family: 'Courier New', Courier, monospace;
-  font-size: 18px;
+  font-size: 21px;
   color: white;
 }
 
@@ -8,3 +8,45 @@ body{
   background-image: url(./images/background.jpg);
   background-repeat: no-repeat;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 30vw;
+  top: 15vh; 
+}
+
+form :first-child{
+  background-color: transparent;
+  border-top-style: none;
+  border-left-style: none;
+  border-right-style:none;
+  border-bottom: 1em , solid , white;
+  margin-bottom: 1em;
+}
+
+form div{
+  margin-left: 10em;
+}
+
+#forecast{
+  font-size: 2em;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 13vw;
+  top: 10vh;
+}
+
+#forecast #left-panel>*{
+  margin-top: 1.96em;
+  margin-left: 1.96em;
+  margin-bottom: 1.96em;
+  margin-right: 9em;
+}
+
+#forecast #right-panel>*{
+  margin: 1.96em;
+}
+

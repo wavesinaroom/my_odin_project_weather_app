@@ -47,15 +47,19 @@ function fetchTimeZone(lat, lon){
 
 function displayWeather(weather){
   const forecastContent =    `<div id = 'forecast'>
-                              <div id = 'clock'></div>
+                              <div id = 'left-panel'>
                               <p>${weather.sys.country}</p>
                               <p>${weather.name}</p>
+                              <div id = 'clock'></div>
                               <p>Latitude: ${weather.coord.lat}</p>
                               <p>Longitude: ${weather.coord.lon}</p>
+                              </div>
+                              <div id = 'right-panel'>
                               <p>${weather.weather[0].description}</p>
                               <img alt='weather-icon' src=https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png></img>
                               <p id = 'temp'>${displayTempFormat(weather.main.temp)} </p>
-                              <p>Fetched in ${end-start} ms</p> 
+                              <p>Fetched in: ${end-start} ms</p> 
+                              </div>
                               </div>`;
 
   if(document.getElementById('forecast')){
@@ -79,7 +83,7 @@ function displayClock(){
   let where = new Date().toLocaleString([], {timeZone: APILocation});
   let now = new Date(where); 
 
-  document.getElementById('clock').innerHTML = `Local time ${now.getHours()}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()} `;
+  document.getElementById('clock').innerHTML = `Local time: ${now.getHours()}:${now.getMinutes()<10?'0'+now.getMinutes():now.getMinutes()}:${now.getSeconds()<10?'0'+now.getSeconds():now.getSeconds()} `;
   setTimeout(function(){
     displayClock();
   }, 1000);
@@ -111,3 +115,4 @@ const renderUserForm = function(){
   });
 }();
 
+fetchData('London');
