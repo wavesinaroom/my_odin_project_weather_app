@@ -6,7 +6,7 @@
 
 body{
   background: url(./images/background.jpg) no-repeat;
-  background-position-x: 12vw;
+  background-size: 110%;
 }
 
 form {
