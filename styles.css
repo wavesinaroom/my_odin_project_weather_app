@@ -5,15 +5,15 @@
 }
 
 body{
-  background-image: url(./images/background.jpg);
-  background-repeat: no-repeat;
+  background: url(./images/background.jpg) no-repeat;
+  background-position-x: 12vw;
 }
 
 form {
   display: flex;
   flex-direction: column;
   position: absolute;
-  left: 30vw;
+  left: 45vw;
   top: 15vh; 
 }
 
@@ -31,11 +31,11 @@ form div{
 }
 
 #forecast{
-  font-size: 2em;
+  font-size: 35px;
   display: flex;
   flex-direction: row;
   position: absolute;
-  left: 13vw;
+  left: 22vw;
   top: 10vh;
 }
 
