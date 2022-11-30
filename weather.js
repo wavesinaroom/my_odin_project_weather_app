@@ -115,4 +115,3 @@ const renderUserForm = function(){
   });
 }();
 
-fetchData('London');
